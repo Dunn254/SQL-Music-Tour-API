@@ -10,7 +10,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 // SEQUELIZE CONNECTION
-const sequelize = new Sequelize(process.env.PG_URI)
+//const sequelize = new Sequelize(process.env.PG_URI)
 // //OR DO IT AS AN OBJECT AS SHOWN BELOW
 // // SEQUELIZE CONNECTION
 // const sequelize = new Sequelize({
@@ -20,15 +20,13 @@ const sequelize = new Sequelize(process.env.PG_URI)
 //     password: 'my_password'
 //   })
   
-
-try {
-    sequelize.authenticate() 
-    console.log(`Connected with Sequelize at ${process.env.PG_URI}`) 
-} catch(err) {
-    console.log(`Unable to connect to PG: ${err}`) 
-}
-
-
+// try {
+//     sequelize.authenticate() 
+//     console.log(`Connected with Sequelize at ${process.env.PG_URI}`)
+//     require ('.models/band.js') 
+// } catch(err) {
+//     console.log(`Unable to connect to PG: ${err}`) 
+// }
 
 // ROOT
 app.get('/', (req, res) => {
@@ -36,6 +34,11 @@ app.get('/', (req, res) => {
         message: 'Welcome to the Tour API'
     })
 })
+
+// CONTROLLERS 
+const bandsController = require('./controllers/bands_controller')
+app.use('/bands', bandsController)
+
 
 // LISTEN
 app.listen(process.env.PORT, () => {
